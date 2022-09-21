@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <math/vector3.hpp>
+#include <math/mat4.hpp>
 
 using namespace std;
 
@@ -23,5 +24,14 @@ int main() {
     cout << "normalizar: " << v2.normalized() << endl;
 
     cout << "0: " << dot(cross(v1, v3), v2) << endl;
+
+    Mat4 m1, m2;
+
+    m1[0][0] = 3;
+    m1[1][1] = 2;
+    m1[0][1] = 1;
+
+    cout << m1 * m1 << endl;
+
     return 0;
 }
