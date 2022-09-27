@@ -23,7 +23,7 @@ int main() {
     cout << "modulo: " << v2.modulus() << endl;
     cout << "normalizar: " << v2.normalized() << endl;
 
-    cout << "0: " << dot(cross(v1, v3), v2) << endl;
+    cout << "0 = " << dot(cross(v1, v3), v2) << endl;
 
     Mat4 m1, m2;
 
@@ -31,7 +31,10 @@ int main() {
     m1[1][1] = 2;
     m1[0][1] = 1;
 
+    m2 = m1;
+
     cout << m1 * m1 << endl;
 
+    cout << (m1 * m1).det() << endl;
     return 0;
 }
