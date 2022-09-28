@@ -1,40 +1,28 @@
 #include <iostream>
+#include <vector>
+#include <sort/sort.hpp>
+#include <test/test.hpp>
 
-#include <math/vector3.hpp>
-#include <math/mat4.hpp>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
 int main() {
-    cout << "Hello" << endl;
 
-    Vector3 v1(1, 1, 1), v2(2, 2, 2), v3(0, -1, 4);
-
-    cout << v1 << "; " << v2 << endl;
+    srand(time(nullptr));
     
-    cout << "cross: " << cross(v1, v2) << endl;
-    cout << "dot: " << dot(v1, v2) << endl;;
-    
-    cout << "suma: " << v1 + v2 << endl;
-    cout << "resta: " << v1 - v2 << endl;
-    cout << "multiplicacion: " << v1 * 5 << endl;
-    cout << "division: "<< v2 / 2 << endl;
+    vector<int> arr1;
 
-    cout << "modulo: " << v2.modulus() << endl;
-    cout << "normalizar: " << v2.normalized() << endl;
+    for ( int i = 0; i < 10000000; i++ ) {
+        arr1.push_back(rand());
+    }
 
-    cout << "0 = " << dot(cross(v1, v3), v2) << endl;
+    if ( run_test(quick_sort, arr1) ) {
+        cout << ":D" << endl;
+    } else {
+        cout << "D:" << endl;
+    }
 
-    Mat4 m1, m2;
-
-    m1[0][0] = 3;
-    m1[1][1] = 2;
-    m1[0][1] = 1;
-
-    m2 = m1;
-
-    cout << m1 * m1 << endl;
-
-    cout << (m1 * m1).det() << endl;
     return 0;
 }

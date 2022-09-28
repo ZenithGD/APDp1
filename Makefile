@@ -5,7 +5,7 @@ BIN		 := ./bin
 OBJ_DIR  := $(BUILD)
 APP_DIR  := $(BIN)
 TARGET  := main
-INCLUDE  := -I. -Iinclude/math
+INCLUDE  := -I. -Iinclude/sort
 SRC      := $(wildcard ./**/*.cpp) main.cpp
 
 OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
