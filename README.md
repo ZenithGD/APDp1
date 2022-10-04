@@ -1,2 +1,2 @@
-# IG-renderer
-A CPU renderer written in standard c++
+# APD_p1
+Algorithmic engineering
