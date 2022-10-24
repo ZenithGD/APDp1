@@ -12,8 +12,10 @@ vector<int> load_test(const string path) {
 
     if ( f.is_open() ) {
         
-        f >> val;
-        v.push_back(val);
+        while ( !f.eof() ) {
+            f >> val;
+            v.push_back(val);
+        }
     }
 
     f.close();
@@ -24,12 +26,17 @@ vector<int> load_test(const string path) {
 void save_test(const vector<int>& vec, const string path) {
     ofstream out(path);
 
-    if ( out.is_open() ) {
+    if ( !out.is_open() ) {
+        throw runtime_error("No se puede abrir '" + path + "'");
+    }
 
-        for ( auto v : vec ) {
-            out << v;
+    for ( int i = 0; i < vec.size(); i++ ) {
+        out << vec[i];
+        if ( i != vec.size() - 1 ) {
+            out << " ";
         }
     }
+    
 
     out.close();
 }
