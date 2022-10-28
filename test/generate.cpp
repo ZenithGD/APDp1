@@ -8,10 +8,8 @@ using namespace std;
 
 void generateTest(const string name, unsigned int n, Generator& g){
 
-    auto arr1 = generateArray(n, g); 
-    string path = "testfiles/generated_" + name;
-    cout << "CREANDO FICHERO..." << path <<endl;
-    save_test(arr1, path);
+    auto arr1 = generateArray(n, g);
+    save_test(arr1, name);
 
 }
 

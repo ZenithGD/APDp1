@@ -15,19 +15,20 @@
 using namespace std;
 
 const int MAX = 150000;
+const string GEN_PATH = "testfiles/generated/";
 
 void generateTests() {
     RangeGenerator g1(0, 100000000);
-    generateTest("test1", 10000, g1);
+    generateTest(GEN_PATH + "test1.txt", 10000, g1);
 
     ArithmeticGenerator g2(0, 1);
-    generateTest("test_step_+1", 100000, g2);
+    generateTest(GEN_PATH + "test_step_+1.txt", 100000, g2);
 
     NormalDistributionGenerator g3(500, 40);
-    generateTest("test_normal_500_40", 100000, g3);
+    generateTest(GEN_PATH + "test_normal_500_40.txt", 100000, g3);
 
     RangeGenerator g4(100000000, 999999999);
-    generateTest("test2", 10000, g4);
+    generateTest(GEN_PATH + "test2.txt", 10000, g4);
 }
 
 // analyze quicksort for best, avg and worst cases
