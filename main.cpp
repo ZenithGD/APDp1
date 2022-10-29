@@ -19,7 +19,7 @@ const string GEN_PATH = "testfiles/generated/";
 
 void generateTests() {
     RangeGenerator g1(0, 100000000);
-    generateTest(GEN_PATH + "test1.txt", 10000, g1);
+    generateTest(GEN_PATH + "test1.txt", 100000, g1);
 
     ArithmeticGenerator g2(0, 1);
     generateTest(GEN_PATH + "test_step_+1.txt", 100000, g2);
@@ -28,7 +28,7 @@ void generateTests() {
     generateTest(GEN_PATH + "test_normal_500_40.txt", 100000, g3);
 
     RangeGenerator g4(100000000, 999999999);
-    generateTest(GEN_PATH + "test2.txt", 10000, g4);
+    generateTest(GEN_PATH + "test2.txt", 100000, g4);
 }
 
 // analyze quicksort for best, avg and worst cases
@@ -42,10 +42,19 @@ void analyzeQuicksort() {
         throw std::runtime_error("Can't open file");
     }
 
-    csvOut << "n;avg;worst" << endl;
+    csvOut << "n;best;avg;worst" << endl;
     
     for ( int i = 10000; i < MAX; i += 5000) {
-        double init, end, stime, utime;
+        double init, end;
+
+        auto bestCase = genQSBestCase(i);
+
+        init = clock();
+        quick_sort(bestCase);
+        end = clock();
+        
+        double besttime = double(end - init) / CLOCKS_PER_SEC;
+
         // Worst case: sorted vector
         ArithmeticGenerator gsorted(0, 1);
 
@@ -58,7 +67,7 @@ void analyzeQuicksort() {
         quick_sort(as);
         end = clock();
         
-        stime = double(end - init) / CLOCKS_PER_SEC;
+        double avgtime = double(end - init) / CLOCKS_PER_SEC;
 
         auto au = generateArray(i, guniform);
 
@@ -66,9 +75,9 @@ void analyzeQuicksort() {
         quick_sort(au);
         end = clock();
 
-        utime = double(end - init) / CLOCKS_PER_SEC;
+        double worsttime = double(end - init) / CLOCKS_PER_SEC;
 
-        csvOut << i << ";" << setprecision(10) << utime << ";" << setprecision(10) << stime << endl;
+        csvOut << i << ";" << setprecision(10) << besttime << ";" << setprecision(10) << worsttime << ";" << setprecision(10) << avgtime << endl;
     }
 
     csvOut.close();
@@ -99,7 +108,7 @@ void analyzeRadix() {
         avgtime = double(end - init) / CLOCKS_PER_SEC;
         
         // All elements have the same number of digits
-        RangeGenerator guniformdigits(100000, 999999);
+        RangeGenerator guniformdigits(100000, 500000);
 
         auto bestCase = generateArray(i, guniformdigits);
 
@@ -222,8 +231,8 @@ int main(int argc, char** argv)
         }
         
         if ( ok ) {
-            double time = double(end - init) / CLOCKS_PER_SEC;
-            cout << "Tiempo de ejecución del test: " << time << endl;
+            double time = double(end - init) / CLOCKS_PER_SEC * 1000;
+            cout << "Tiempo de ejecución del test (ms): " << time << endl;
         }
         
         else {

@@ -10,12 +10,13 @@ vector<int> load_test(const string path) {
     vector<int> v;
     int val;
 
-    if ( f.is_open() ) {
+    if ( !f.is_open() ) {
+        throw runtime_error("Can't open '" + path + "'");
+    }
         
-        while ( !f.eof() ) {
-            f >> val;
-            v.push_back(val);
-        }
+    while ( !f.eof() ) {
+        f >> val;
+        v.push_back(val);
     }
 
     f.close();
@@ -27,7 +28,7 @@ void save_test(const vector<int>& vec, const string path) {
     ofstream out(path);
 
     if ( !out.is_open() ) {
-        throw runtime_error("No se puede abrir '" + path + "'");
+        throw runtime_error("Can't open '" + path + "'");
     }
 
     for ( int i = 0; i < vec.size(); i++ ) {
@@ -47,8 +48,7 @@ bool check_sorted(vector<int>& vec) {
     int n = vec.size();
 
     for ( int i = 0; i < n-1 && ok; i++){
-        if(vec[i] > vec[i + 1]){
-            // cout << "HE ENTRADO CON: "<< vec[i] << " , " << vec[i+1] << endl;
+        if(vec[i] > vec[i + 1]) {
             ok = false;
         }
     }
@@ -68,7 +68,6 @@ bool run_test(function<void(vector<int>&)> sort_alg, vector<int> vec) {
 
     try {
         sort_alg(vec);
-        //print_array(vec, vec.size());
         
         return check_sorted(vec);
     } catch (exception& ex) {
